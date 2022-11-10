@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import Content from './content';
+import Content from './Content';
 import Button from './Button';
 import { rgba } from 'polished';
 import { media } from './theme';

@@ -2,7 +2,7 @@ import { parsePhoneNumber } from 'libphonenumber-js';
 import React from 'react';
 import styled from 'styled-components';
 
-import Content from './content';
+import Content from './Content';
 import { media } from './theme';
 
 const Footer = ({ address, email, links, message, phoneHeading, numbers }) => {

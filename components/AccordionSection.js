@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useMeasure } from 'react-use';
 import styled from 'styled-components';
-import Content from './content';
+import Content from './Content';
 
 const AccordionSection = ({ slug, heading, content }) => {
   const [open, setOpen] = useState(false);

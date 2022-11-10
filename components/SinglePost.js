@@ -1,6 +1,6 @@
 import React from 'react';
 import styled, { ThemeContext } from 'styled-components';
-import Content from './content';
+import Content from './Content';
 import ImageComp from './ImageComp';
 import StoriesListItem from './StoriesListItem';
 import { media } from './theme';

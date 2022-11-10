@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Content from './content';
+import Content from './Content';
 import PageTitle from './PageTitle';
 
 const Page = ({ title, content }) => {
