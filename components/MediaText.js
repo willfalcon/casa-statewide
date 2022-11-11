@@ -27,7 +27,8 @@ const StyledMediaText = styled.div`
   }
 
   ${media.break`
-  display: flex;
+    display: flex;
+    min-height: 300px;
   `}
 
   .media-text {

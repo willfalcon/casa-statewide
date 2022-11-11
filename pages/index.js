@@ -14,7 +14,8 @@ export async function getStaticProps() {
   const data = await client.fetch(`{
     ${site}
     "page": *[_id == 'homePage'][0] {
-      ...
+      ...,
+      subscribeForm-> { ... }
     },
     "posts": *[_type == 'post'][0..2] {
       title, slug, subHeading, mainImage, _id

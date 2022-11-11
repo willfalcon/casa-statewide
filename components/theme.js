@@ -8,6 +8,7 @@ const theme = {
   light: '#E0E0E0',
   lighter: '#EEF2F6',
   offWhite: '#F1F5F8',
+  lightGray: '#BCC1C4',
   font: {
     family: 'brandon-grotesque, sans-serif',
     regular: '400',

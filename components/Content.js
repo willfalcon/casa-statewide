@@ -23,8 +23,10 @@ const Content = React.forwardRef(({ children, className }, ref) => {
         return <MediaText {...value} />;
       },
       button: ({ value }) => {
+        const { alignment: justifyContent } = value;
+
         return (
-          <div className="content-button-wrapper">
+          <div className="content-button-wrapper" style={{ justifyContent }}>
             <Button className="content-button" {...value} />
           </div>
         );

@@ -13,7 +13,7 @@ const GlobalStyle = createGlobalStyle`
   }
   body {
     font-family: ${({ theme }) => theme.font.family};
-    font-size: 1.6rem;
+    font-size: 1.8rem;
     margin: 0;
   }
   button  {
@@ -83,7 +83,12 @@ const GlobalStyle = createGlobalStyle`
     border-radius: 12px;
     text-transform: uppercase;
     font-weight: ${({ theme }) => theme.font.bold};
-    
+    transition: .15s;
+    &:hover {
+      background: ${({ theme }) => theme.blue};
+      color: white;
+      text-decoration: none;
+    }
   }
   .button--red {
     background: ${({ theme }) => theme.red};

@@ -21,23 +21,23 @@ export const site = `"site": {
   "footer": *[_id == 'footerSettings'][0] {
     ...
   },
-  "subNav": *[_id == 'homePage'][0] {
-    subNav
-  }
+  "subNav": *[_id == 'homePage'][0].subNav,
+  "webFormAccessKey": *[_id == 'generalSettings'][0].webFormAccessKey
 },`;
 
 const SiteContext = createContext();
 export const useSiteContext = () => useContext(SiteContext);
 
 const Wrapper = ({ children, site }) => {
+  const { subNav, webFormAccessKey, header, footer } = site;
   return (
     <ThemeProvider theme={theme}>
-      <SiteContext.Provider value={{ ...site.header, subNav: site.subNav.subNav }}>
+      <SiteContext.Provider value={{ ...header, subNav, webFormAccessKey }}>
         <SiteWrapper className="site-wrapper">
           <Meta />
-          <Header {...site.header} />
+          <Header {...header} />
           <PageWrapper className="page-wrapper">{children}</PageWrapper>
-          <Footer {...site.footer} />
+          <Footer {...footer} />
           <GlobalStyle />
         </SiteWrapper>
       </SiteContext.Provider>

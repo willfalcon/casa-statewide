@@ -20,8 +20,9 @@ const StyledPageTitle = styled.div`
   position: relative;
   padding: 2rem;
   width: 100%;
+  margin-bottom: 3rem;
   ${media.break`
-  padding: 3rem 2rem;
+    padding: 3rem 2rem;
 
   `}
   &::after {
