@@ -1,12 +1,18 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import styled, { ThemeContext } from 'styled-components';
+import dynamic from 'next/dynamic';
+
 import Hero from './Hero';
 import ImageComp from './ImageComp';
-import Stories from './Stories';
+// import Stories from './Stories';
 import SubNav from './SubNav';
 import { media } from './theme';
 
 import Form from './Form';
+
+const Stories = dynamic(() => import('./Stories'), {
+  suspense: true,
+});
 
 const HomePage = props => {
   const { title, hero, bannerText, subNav, posts, subscribeImage, subscribeForm } = props;
@@ -15,7 +21,9 @@ const HomePage = props => {
       <Hero {...hero} />
       {bannerText && <h2 className="homepage-banner">{bannerText}</h2>}
       <SubNav subNav={subNav} />
-      <Stories posts={posts} />
+      <Suspense fallback={`...`}>
+        <Stories posts={posts} />
+      </Suspense>
       <div className="subscribe-form">
         <div className="subscribe-form__image-wrapper">
           <ImageComp className="subscribe-form__image" image={subscribeImage} useMobileCrop={true} />
