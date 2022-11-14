@@ -4,6 +4,14 @@ import React, { useState } from 'react';
 import Label from './Label';
 import ErrorMessage from './ErrorMessage';
 
+const slugify = str =>
+  str
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w\s-]/g, '')
+    .replace(/[\s_-]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+
 const TextField = ({ name, fieldOptions, error, _type }) => {
   const required = fieldOptions && fieldOptions.required ? fieldOptions.required : false;
   const halfWidth = fieldOptions && fieldOptions.halfWidth ? fieldOptions.halfWidth : false;
@@ -20,9 +28,10 @@ const TextField = ({ name, fieldOptions, error, _type }) => {
     }
   };
 
+  const nameSlug = adminLabel ? slugify(adminLabel) : slugify(name);
   return (
     <>
-      <Label className="field-text" isFocused={focused} htmlFor={adminLabel ? adminLabel : name} halfWidth={halfWidth}>
+      <Label className="field-text" isFocused={focused} htmlFor={nameSlug} halfWidth={halfWidth}>
         <span className="label-text">
           {name}
           {required && '*'}
@@ -30,7 +39,7 @@ const TextField = ({ name, fieldOptions, error, _type }) => {
         <input
           className="text-input"
           type={_type === 'emailField' ? 'email' : 'text'}
-          name={adminLabel ? adminLabel : name}
+          name={nameSlug}
           onFocus={handleFocus}
           onBlur={handleBlur}
           required={required}

@@ -1,13 +1,14 @@
 import classNames from 'classnames';
 import React, { useState } from 'react';
 import styled from 'styled-components';
+// import { useFormspark } from '@formspark/use-formspark';
 import Content from '../Content';
 import { useSiteContext } from '../Wrapper';
 import ErrorMessage from './ErrorMessage';
 import FieldSwitcher from './FieldSwitcher';
 
 const Form = props => {
-  const { title, description, formBuilder, successMessage, submitText, className } = props;
+  const { title, formId, description, formBuilder, successMessage, submitText, className } = props;
 
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -20,33 +21,28 @@ const Form = props => {
       <Content className="form__description">{description}</Content>
       <form
         className="form__form"
-        action="https://api.web3forms.com/submit"
-        method="POST"
+        data-netlify="true"
+        netlify-honeypot="botcheck"
+        id={formId}
+        name={title}
         onSubmit={e => {
-          setLoading(true);
           setError(null);
+          setLoading(true);
           e.preventDefault();
-          const formData = new FormData(e.target);
-          let object = {};
-          formData.forEach((value, key) => {
-            object[key] = value;
-          });
-          const json = JSON.stringify(object);
+          const form = e.target;
+          const formData = new FormData(form);
 
-          fetch('https://api.web3forms.com/submit', {
+          fetch('/', {
             method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              Accept: 'application/json',
-            },
-            body: json,
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams(formData).toString(),
           })
             .then(async response => {
               let json = await response.json();
+              console.log(json);
               if (response.status == 200) {
                 setSuccess(true);
               } else {
-                console.log(json);
                 setError(json.message);
               }
               setLoading(false);
@@ -58,21 +54,17 @@ const Form = props => {
             })
             .then(() => {
               // reset form
-              e.target.reset();
+              form.reset();
             });
         }}
       >
         <fieldset disabled={loading}>
-          <input type="hidden" name="access_key" value={webFormAccessKey} />
-          <input type="hidden" name="subject" value={`New submission from form: ${title}`} />
-          <input type="hidden" name="from_name" value="CASA Statewide" />
-
-          <input type="checkbox" name="botcheck" className="hidden" style={{ display: 'none' }} />
+          <input name="botcheck" className="hidden" style={{ display: 'none' }} />
           {formBuilder.map(field => (
             <FieldSwitcher key={field._key} field={field} />
           ))}
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '2rem 0' }}>
-            <button type="submit" className="button">
+            <button type="submit" className="button" disabled={loading}>
               {submitText || 'Submit'}
             </button>
           </div>

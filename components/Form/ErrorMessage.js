@@ -13,7 +13,10 @@ const ErrorMessage = ({ error }) => {
         return <StyledError>{error.message}</StyledError>;
     }
   }
-  return <StyledError>{error}</StyledError>;
+  if (typeof error === 'string') {
+    return <StyledError>{error}</StyledError>;
+  }
+  return <StyledError>Something went wrong!</StyledError>;
 };
 
 const StyledError = styled.p`
