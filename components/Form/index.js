@@ -14,8 +14,6 @@ const Form = props => {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(null);
 
-  const { webFormAccessKey } = useSiteContext();
-
   return (
     <FormWrapper className={classNames(className, 'form')}>
       <Content className="form__description">{description}</Content>
@@ -25,6 +23,7 @@ const Form = props => {
         netlify-honeypot="botcheck"
         id={formId}
         name={title}
+        method="POST"
         onSubmit={e => {
           setError(null);
           setLoading(true);
@@ -32,7 +31,7 @@ const Form = props => {
           const form = e.target;
           const formData = new FormData(form);
 
-          fetch('/', {
+          fetch('/form-submit', {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: new URLSearchParams(formData).toString(),
@@ -45,16 +44,13 @@ const Form = props => {
               } else {
                 setError(json.message);
               }
+              form.reset();
               setLoading(false);
             })
             .catch(error => {
               console.log(error);
               setLoading(false);
               setError(error);
-            })
-            .then(() => {
-              // reset form
-              form.reset();
             });
         }}
       >
