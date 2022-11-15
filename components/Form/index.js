@@ -14,6 +14,27 @@ const Form = props => {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(null);
 
+  async function handleSubmit(e) {
+    e.preventDefault();
+    setError(null);
+    setLoading(true);
+    const form = e.target;
+    const formData = new FormData(form);
+    const res = await fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams(formData).toString(),
+    });
+    const json = await res.json();
+    console.log(json);
+    if (json.error) {
+      setError(json.message);
+    } else {
+      setSuccess(true);
+      form.reset();
+    }
+  }
+
   return (
     <FormWrapper className={classNames(className, 'form')}>
       <Content className="form__description">{description}</Content>
@@ -24,35 +45,7 @@ const Form = props => {
         id={formId}
         name={title}
         method="POST"
-        onSubmit={e => {
-          setError(null);
-          setLoading(true);
-          e.preventDefault();
-          const form = e.target;
-          const formData = new FormData(form);
-
-          fetch('/form-submit', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: new URLSearchParams(formData).toString(),
-          })
-            .then(async response => {
-              let json = await response.json();
-              console.log(json);
-              if (response.status == 200) {
-                setSuccess(true);
-              } else {
-                setError(json.message);
-              }
-              form.reset();
-              setLoading(false);
-            })
-            .catch(error => {
-              console.log(error);
-              setLoading(false);
-              setError(error);
-            });
-        }}
+        onSubmit={handleSubmit}
       >
         <fieldset disabled={loading}>
           <input name="botcheck" className="hidden" style={{ display: 'none' }} />
