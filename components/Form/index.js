@@ -19,7 +19,9 @@ const Form = props => {
     setError(null);
     setLoading(true);
     const form = e.target;
+    console.log(form);
     const formData = new FormData(form);
+    console.log(new URLSearchParams(formData).toString());
     const res = await fetch('/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -49,6 +51,7 @@ const Form = props => {
       >
         <fieldset disabled={loading}>
           <input name="botcheck" className="hidden" style={{ display: 'none' }} />
+          <input type="hidden" name="form-name" value={title} />
           {formBuilder.map(field => (
             <FieldSwitcher key={field._key} field={field} />
           ))}

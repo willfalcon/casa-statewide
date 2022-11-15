@@ -11,7 +11,6 @@ import { media } from './theme';
 import Form from './Form';
 
 const Stories = dynamic(() => import('./Stories'), {
-  suspense: true,
   ssr: false,
 });
 

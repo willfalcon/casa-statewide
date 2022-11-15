@@ -28,7 +28,8 @@ const TextField = ({ name, fieldOptions, error, _type }) => {
     }
   };
 
-  const nameSlug = adminLabel ? slugify(adminLabel) : slugify(name);
+  const nameSlug = adminLabel ? adminLabel : name;
+
   return (
     <>
       <Label className="field-text" isFocused={focused} htmlFor={nameSlug} halfWidth={halfWidth}>
