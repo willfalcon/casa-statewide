@@ -12,6 +12,7 @@ import Form from './Form';
 
 const Stories = dynamic(() => import('./Stories'), {
   suspense: true,
+  ssr: false,
 });
 
 const HomePage = props => {
