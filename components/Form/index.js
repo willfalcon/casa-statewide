@@ -27,10 +27,10 @@ const Form = props => {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: new URLSearchParams(formData).toString(),
     });
-    const json = await res.json();
-    console.log(json);
-    if (json.error) {
-      setError(json.message);
+    // const json = await res.json();
+    console.log(res);
+    if (res.error) {
+      setError(res.message);
     } else {
       setSuccess(true);
       form.reset();
