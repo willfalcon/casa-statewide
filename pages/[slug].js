@@ -43,21 +43,23 @@ export async function getStaticProps(context) {
   );
 
   const referenceFields = data.page.content?.filter(block => block.link?._type === 'reference' || block._type === 'form');
-  const references = await Promise.all(
-    referenceFields?.map(async item => {
-      try {
-        if (item._type === 'form') {
-          const form = await client.fetch(`*[_id == $ref][0]`, { ref: item._ref });
-          return form;
-        } else if (item.link?._type === 'reference') {
-          const button = await client.fetch(`*[_id == $ref][0]`, { ref: item.link._ref });
-          return button;
-        }
-      } catch (error) {
-        return { ...item, error };
-      }
-    })
-  );
+  const references = referenceFields
+    ? await Promise.all(
+        referenceFields?.map(async item => {
+          try {
+            if (item._type === 'form') {
+              const form = await client.fetch(`*[_id == $ref][0]`, { ref: item._ref });
+              return form;
+            } else if (item.link?._type === 'reference') {
+              const button = await client.fetch(`*[_id == $ref][0]`, { ref: item.link._ref });
+              return button;
+            }
+          } catch (error) {
+            return { ...item, error };
+          }
+        })
+      )
+    : {};
   return {
     props: {
       ...data,
