@@ -44,7 +44,7 @@ export async function getStaticProps(context) {
 
   const referenceFields = data.page.content?.filter(block => block.link?._type === 'reference' || block._type === 'form');
   const references = await Promise.all(
-    referenceFields.map(async item => {
+    referenceFields?.map(async item => {
       try {
         if (item._type === 'form') {
           const form = await client.fetch(`*[_id == $ref][0]`, { ref: item._ref });
