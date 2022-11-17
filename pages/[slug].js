@@ -42,7 +42,7 @@ export async function getStaticProps(context) {
     { slug: context.params.slug }
   );
 
-  const referenceFields = data.page.content.filter(block => block.link?._type === 'reference' || block._type === 'form');
+  const referenceFields = data.page.content?.filter(block => block.link?._type === 'reference' || block._type === 'form');
   const references = await Promise.all(
     referenceFields.map(async item => {
       try {
