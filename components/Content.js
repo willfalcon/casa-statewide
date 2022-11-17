@@ -4,12 +4,13 @@ import React from 'react';
 import styled from 'styled-components';
 import Accordions from './Accordions';
 import Button from './Button';
+import Form from './Form';
 import GetInvolved from './GetInvolved';
 import ImageComp from './ImageComp';
 import InfoBlock from './InfoBlock';
 import MediaText from './MediaText';
 
-const Content = React.forwardRef(({ children, className }, ref) => {
+const Content = React.forwardRef(({ children, className, references }, ref) => {
   const components = {
     marks: {
       centered: props => <span className="text-center">{props.children}</span>,
@@ -24,10 +25,11 @@ const Content = React.forwardRef(({ children, className }, ref) => {
       },
       button: ({ value }) => {
         const { alignment: justifyContent } = value;
+        const button = value.link?._type === 'reference' ? { ...value, link: references.find(ref => ref._id === value.link._ref) } : value;
 
         return (
           <div className="content-button-wrapper" style={{ justifyContent }}>
-            <Button className="content-button" {...value} />
+            <Button className="content-button" {...button} />
           </div>
         );
       },
@@ -38,8 +40,11 @@ const Content = React.forwardRef(({ children, className }, ref) => {
         return <GetInvolved {...value} />;
       },
       accordions: ({ value }) => {
-        console.log(value);
         return <Accordions {...value} />;
+      },
+      form: ({ value }) => {
+        const form = references.find(reference => reference._id === value._ref);
+        return <Form {...form} />;
       },
     },
   };

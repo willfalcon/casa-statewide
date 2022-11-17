@@ -3,11 +3,13 @@ import styled from 'styled-components';
 import Content from './Content';
 import PageTitle from './PageTitle';
 
-const Page = ({ title, content }) => {
+const Page = ({ title, content, references }) => {
   return (
     <StyledPage>
       <PageTitle>{title}</PageTitle>
-      <Content className="page-content">{content}</Content>
+      <Content className="page-content" references={references}>
+        {content}
+      </Content>
     </StyledPage>
   );
 };

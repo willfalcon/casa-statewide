@@ -11,7 +11,7 @@ const StoriesListItem = ({ slug, title, mainImage, subHeading, className }) => {
       <h3 className="post__title">{title}</h3>
       <span className="post__sub-heading">{subHeading}</span>
       <span className="post__read-more read-more">
-        Read Story <MdOutlineArrowRightAlt />
+        Read Story <MdOutlineArrowRightAlt className="read-more-icon" />
       </span>
       {mainImage && <ImageComp className="post__image" image={mainImage} />}
     </Post>
@@ -32,8 +32,14 @@ const Post = styled(Link)`
   margin-bottom: 2rem;
   column-gap: 1rem;
   background: white;
+  .read-more-icon {
+    transition: 0.15s;
+  }
   &:hover {
     text-decoration: none;
+    .read-more-icon {
+      transform: translateX(30px);
+    }
   }
   .post {
     &__title {

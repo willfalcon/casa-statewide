@@ -1,16 +1,9 @@
 import React, { useState } from 'react';
 // import camelCase from 'camelcase';
 
-import Label from './Label';
+import Label, { FieldWrapper } from './Label';
 import ErrorMessage from './ErrorMessage';
-
-const slugify = str =>
-  str
-    .toLowerCase()
-    .trim()
-    .replace(/[^\w\s-]/g, '')
-    .replace(/[\s_-]+/g, '-')
-    .replace(/^-+|-+$/g, '');
+import { useFocusState, useFormContext } from './formUtils';
 
 const TextField = ({ name, fieldOptions, error, _type }) => {
   const required = fieldOptions && fieldOptions.required ? fieldOptions.required : false;
@@ -18,21 +11,13 @@ const TextField = ({ name, fieldOptions, error, _type }) => {
   const adminLabel = fieldOptions && fieldOptions.adminLabel ? fieldOptions.adminLabel : false;
 
   // Focus State
-  const [focused, setFocus] = useState(false);
-  const handleFocus = e => {
-    setFocus(true);
-  };
-  const handleBlur = e => {
-    if (!e.target.value) {
-      setFocus(false);
-    }
-  };
+  const { focused, handleFocus, handleBlur } = useFocusState();
 
   const nameSlug = adminLabel ? adminLabel : name;
 
   return (
-    <>
-      <Label className="field-text" isFocused={focused} htmlFor={nameSlug} halfWidth={halfWidth}>
+    <FieldWrapper halfWidth={halfWidth} className="text-field-wrapper">
+      <Label className="field-text" isFocused={focused} htmlFor={nameSlug}>
         <span className="label-text">
           {name}
           {required && '*'}
@@ -47,7 +32,7 @@ const TextField = ({ name, fieldOptions, error, _type }) => {
         />
       </Label>
       {error && <ErrorMessage error={error} />}
-    </>
+    </FieldWrapper>
   );
 };
 

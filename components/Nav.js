@@ -32,6 +32,8 @@ const StyledNav = styled.nav`
     display: flex;
     padding: 0;
     justify-content: space-around;
+  `}
+  ${media.wide`
     padding-right: 2rem;
   `}
   .nav-menu {
@@ -50,6 +52,8 @@ const StyledNav = styled.nav`
     `}
   }
   .nav-item {
+    font-size: 1.6rem;
+    text-align: center;
     a,
     span {
       text-transform: uppercase;

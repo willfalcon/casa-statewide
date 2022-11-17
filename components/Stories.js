@@ -36,7 +36,7 @@ const Stories = ({ posts }) => {
         {posts.map(post => {
           return (
             <SwiperSlide key={post._id}>
-              <Post className="stories-post" href={`/story/${post.slug.current}`}>
+              <Post className="stories-post" href={`/story/${post.slug.current}`} height={tallest}>
                 <div className="stories-post-image-wrapper">
                   {post.mainImage && (
                     <ImageComp className="stories-post-image" image={post.mainImage} alt={post.mainImage.alt} mobile={300} useMobileCrop />
@@ -61,6 +61,7 @@ const Stories = ({ posts }) => {
 const Post = styled(Link)`
   display: block;
   height: 100%;
+  height: ${({ height }) => (height ? `${height}px` : '100%')};
   display: flex;
   flex-direction: column;
   &:hover {
@@ -68,20 +69,26 @@ const Post = styled(Link)`
   }
   ${media.break`
     flex-direction: row;
-    height: auto;
+    
+
+    display: grid;
+    grid-template-columns: auto 1fr;
   `}
 
   .stories-post {
     &-image-wrapper {
       ${media.break`
-        flex: 40%;
-        width: 40%;
+        flex-basis: 40%;
+        flex-shrink: 1;
+        /* width: 40%; */
+        max-width: 32vw;
       `}
     }
     &-image {
       height: 200px;
       ${media.break`
-        height: auto;
+        height: 100%;
+        object-fit: cover;
       `}
     }
     &-content {

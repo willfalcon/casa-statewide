@@ -1,6 +1,19 @@
+import classNames from 'classnames';
 import styled from 'styled-components';
 
 import { grid } from '../theme';
+
+export const FieldWrapper = styled.span.attrs(({ halfWidth }) => ({
+  className: classNames('field-wrapper', { halfWidth }),
+}))`
+  width: 100%;
+  height: 100%;
+  position: relative;
+  /* display: inline; */
+  @supports (display: grid) {
+    grid-column: ${({ halfWidth }) => (halfWidth ? 'span 1' : 'span 2')};
+  }
+`;
 
 const Label = styled.label`
   display: block;
@@ -21,7 +34,9 @@ const Label = styled.label`
     left: 1rem;
     height: 20px;
   }
-  input {
+  input,
+  select,
+  textarea {
     border: 1px solid ${({ theme }) => theme.blue};
     color: ${({ theme }) => theme.blue};
     border-radius: 0;
@@ -30,6 +45,19 @@ const Label = styled.label`
     height: 100%;
     font-size: 1.8rem;
     padding-top: 2rem;
+  }
+  select {
+    padding: 1.5rem 1rem;
+  }
+
+  &.checkboxes,
+  &.radiobuttons,
+  &.date-label,
+  &.field-time {
+    height: auto;
+    .label-text {
+      position: relative;
+    }
   }
 `;
 

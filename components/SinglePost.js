@@ -53,7 +53,7 @@ const StyledPost = styled.div`
       justify-content: center;
       gap: 1rem;
       order: 1;
-      flex: 0 0 50%;
+      flex: 1 0 50%;
     `}
   }
   .post-image-wrapper {
