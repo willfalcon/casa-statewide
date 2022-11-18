@@ -13,7 +13,7 @@ const StoriesListItem = ({ slug, title, mainImage, subHeading, className }) => {
       <span className="post__read-more read-more">
         Read Story <MdOutlineArrowRightAlt className="read-more-icon" />
       </span>
-      {mainImage && <ImageComp className="post__image" image={mainImage} />}
+      {mainImage && <ImageComp className="post__image" image={mainImage} useMobileCrop />}
     </Post>
   );
 };
@@ -21,7 +21,7 @@ const StoriesListItem = ({ slug, title, mainImage, subHeading, className }) => {
 const Post = styled(Link)`
   display: grid;
   grid-template-columns: 1fr 40%;
-  grid-template-rows: 1fr auto auto;
+  grid-template-rows: auto 1fr auto;
   grid-template-areas:
     'title image'
     'subheading image'

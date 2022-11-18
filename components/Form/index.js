@@ -56,7 +56,7 @@ const Form = props => {
           {formBuilder.map(field => (
             <FieldSwitcher key={field._key} field={field} />
           ))}
-          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '2rem 0' }}>
+          <div className="form__submit submit-wrapper">
             <button type="submit" className="button" disabled={loading}>
               {submitText || 'Submit'}
             </button>
@@ -84,7 +84,6 @@ const FormWrapper = styled.form`
   }
   .form {
     &__submit {
-      justify-self: start;
       -webkit-appearance: none;
       border-radius: 0px;
       grid-column: span 2;

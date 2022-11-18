@@ -12,7 +12,14 @@ const stories = props => {
 };
 
 export async function getStaticProps() {
-  const perPage = 2;
+  const { count, perPage } = await client.fetch(`
+    {
+      "count": count(*[_type == 'post']),
+      "perPage": *[_id == "generalSettings"][0].postsPerPage
+    }
+  `);
+
+  console.log(count, perPage);
   const start = 0;
   const end = start + perPage;
   const data = await client.fetch(
@@ -31,10 +38,8 @@ export async function getStaticProps() {
       end,
     }
   );
-  const postCount = await client.fetch(`
-  count(*[_type == 'post'])
-`);
-  const numPages = Math.ceil(postCount / perPage);
+
+  const numPages = Math.ceil(count / perPage);
   return {
     props: {
       ...data,

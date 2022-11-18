@@ -12,16 +12,18 @@ const stories = props => {
 };
 
 export async function getStaticPaths() {
-  const data = await client.fetch(`
-    count(*[_type == 'post'])
+  const { count, perPage } = await client.fetch(`
+    {
+      "count": count(*[_type == 'post']),
+      "perPage": *[_id == "generalSettings"][0].postsPerPage
+    }
   `);
-  const perPage = 2;
-  const numPages = Math.ceil(data / perPage);
+
+  const numPages = Math.ceil(count / perPage);
 
   const paths = [...Array(numPages).keys()].map((_, i) => ({
     params: {
       page: `${i + 1}`,
-      numPages,
     },
   }));
 
@@ -32,10 +34,16 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context) {
-  console.log(context);
-  const perPage = 2;
+  const { count, perPage } = await client.fetch(`
+  {
+    "count": count(*[_type == 'post']),
+    "perPage": *[_id == "generalSettings"][0].postsPerPage
+  }
+`);
+
   const page = parseInt(context.params.page);
   const start = (page - 1) * perPage;
+
   const end = start + perPage;
   const data = await client.fetch(
     `{
@@ -50,10 +58,8 @@ export async function getStaticProps(context) {
   }`,
     { start, end }
   );
-  const postCount = await client.fetch(`
-    count(*[_type == 'post'])
-  `);
-  const numPages = Math.ceil(postCount / perPage);
+
+  const numPages = Math.ceil(count / perPage);
   return {
     props: { ...data, page, numPages },
   };

@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination } from 'swiper';
+import { Pagination, Navigation } from 'swiper';
 import { MdOutlineArrowRightAlt } from 'react-icons/md';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
+import 'swiper/css/navigation';
 
 import ImageComp from './ImageComp';
 import { media } from './theme';
@@ -20,8 +21,9 @@ const Stories = ({ posts }) => {
       <Swiper
         slidesPerView={1}
         spaceBetween={20}
-        modules={[Pagination]}
+        modules={[Pagination, Navigation]}
         pagination={{ clickable: true }}
+        navigation={true}
         className="stories-swiper"
         onSwiper={swiper => {
           const slides = swiper.el.querySelectorAll('.stories-post');
@@ -96,6 +98,12 @@ const Post = styled(Link)`
       padding: 1rem;
       flex-grow: 1;
       flex: 60%;
+      ${media.break`
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        grid-template-columns: 100%;
+        gap: 2rem;
+      `}
     }
     &-title {
       margin: 0;
@@ -113,14 +121,42 @@ const Post = styled(Link)`
     }
   }
 `;
+
 const StyledStories = styled.div`
   .stories-heading {
     color: ${({ theme }) => theme.blue};
     text-transform: uppercase;
     text-align: center;
+    margin: 2rem 0;
+    ${media.break`
+      margin: 4rem 0;
+    `}
   }
   .stories-swiper {
-    width: 80%;
+    /* width: 80%; */
+  }
+
+  .stories-post {
+    width: ${({ theme }) => theme.sizes.content}px;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  --swiper-navigation-color: ${({ theme }) => theme.blue};
+  .swiper-button-prev,
+  .swiper-button-next {
+    display: none;
+    ${media.break`
+      display: flex;
+    `}
+  }
+
+  .swiper-button-prev {
+    left: calc((100vw - 900px) / 4);
+  }
+  .swiper-button-next {
+    right: calc((100vw - 900px) / 4);
   }
   .swiper-wrapper {
     height: ${({ height }) => (height ? `${height}px` : 'auto')};
@@ -128,6 +164,7 @@ const StyledStories = styled.div`
       height: auto;
     `}
   }
+
   .swiper-slide {
     height: 100%;
   }

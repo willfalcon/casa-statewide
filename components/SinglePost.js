@@ -89,7 +89,7 @@ const StyledPost = styled.div`
     `}
   }
   .additional-posts {
-    flex: 1 1 300px;
+    flex: 1 1 400px;
     padding: 1rem 2rem;
     &__heading {
       text-transform: uppercase;
