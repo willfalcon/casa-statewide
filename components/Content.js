@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import Accordions from './Accordions';
 import Button from './Button';
 import Form from './Form';
+import Gallery from './Gallery';
 import GetInvolved from './GetInvolved';
 import ImageComp from './ImageComp';
 import InfoBlock from './InfoBlock';
@@ -45,6 +46,10 @@ const Content = React.forwardRef(({ children, className, references }, ref) => {
       form: ({ value }) => {
         const form = references.find(reference => reference._id === value._ref);
         return <Form {...form} />;
+      },
+      gallery: ({ value }) => {
+        console.log(value);
+        return <Gallery {...value} />;
       },
     },
   };

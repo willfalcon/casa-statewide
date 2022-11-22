@@ -12,12 +12,11 @@ import ImageComp from './ImageComp';
 import { media } from './theme';
 import Link from 'next/link';
 
-const Stories = ({ posts }) => {
+const StoriesSlider = ({ posts }) => {
   const [tallest, setHeight] = useState(null);
 
   return (
     <StyledStories className="stories" height={tallest}>
-      <h2 className="stories-heading">Stories</h2>
       <Swiper
         slidesPerView={1}
         spaceBetween={20}
@@ -84,6 +83,7 @@ const Post = styled(Link)`
         flex-shrink: 1;
         /* width: 40%; */
         max-width: 32vw;
+        height: ${({ height }) => (height ? `${height}px` : '100%')};
       `}
     }
     &-image {
@@ -179,4 +179,4 @@ const StyledStories = styled.div`
   }
 `;
 
-export default Stories;
+export default StoriesSlider;

@@ -21,7 +21,14 @@ export const site = `"site": {
   "footer": *[_id == 'footerSettings'][0] {
     ...
   },
-  "subNav": *[_id == 'homePage'][0].subNav,
+  "subNav": *[_id == 'homePage'][0].subNav[] {
+    ...,
+    link->{
+      slug {
+        current
+      }
+    }
+  },
   "webFormAccessKey": *[_id == 'generalSettings'][0].webFormAccessKey
 },`;
 

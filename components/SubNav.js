@@ -1,22 +1,50 @@
+import Link from 'next/link';
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+
 import ImageComp from './ImageComp';
 import { media } from './theme';
+
+const ItemInner = ({ item }) => (
+  <>
+    {item.background && <ImageComp image={item.background} alt="" mobile={200} desktop={350} />}
+    <span className="subnav-label">{item.label}</span>
+  </>
+);
 
 const SubNav = ({ subNav }) => {
   return (
     <StyledSubNav className="subnav">
-      {subNav.map(item => (
-        <Item className="subnav-item" key={item._key} color={item.color}>
-          {item.background && <ImageComp image={item.background} alt="" mobile={200} desktop={350} />}
-          <span className="subnav-label">{item.label}</span>
-        </Item>
-      ))}
+      {subNav.map(item => {
+        const href = item.link
+          ? item.link._id === 'stories' || item.link._ref === 'stories'
+            ? '/stories'
+            : item.link._id === 'homePage' || item.link._ref === 'homePage'
+            ? '/'
+            : `/${item.link.slug?.current}`
+          : null;
+        return item.link ? (
+          <InternalLink href={href} className="subnav-item internal-link" key={item._key} color={item.color}>
+            <ItemInner item={item} />
+          </InternalLink>
+        ) : (
+          <ExternalLink
+            href={item.externalUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="subnav-item external-link"
+            key={item._key}
+            color={item.color}
+          >
+            <ItemInner item={item} />
+          </ExternalLink>
+        );
+      })}
     </StyledSubNav>
   );
 };
 
-const Item = styled.a`
+const Item = css`
   display: block;
   flex: 1 1 33.33%;
   overflow: hidden;
@@ -36,6 +64,8 @@ const Item = styled.a`
     width: 100%;
     z-index: 0;
     position: absolute;
+    transition: 0.5s ease-in-out;
+    will-transform: transform;
   }
   &::after {
     position: absolute;
@@ -62,6 +92,19 @@ const Item = styled.a`
       padding: 0.2rem 2rem;
     `}
   }
+  :hover {
+    text-decoration: none;
+    img {
+      transform: scale(1.2);
+    }
+  }
+`;
+
+const InternalLink = styled(Link)`
+  ${Item}
+`;
+const ExternalLink = styled.a`
+  ${Item}
 `;
 
 const StyledSubNav = styled.div`

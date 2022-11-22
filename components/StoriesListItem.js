@@ -45,6 +45,7 @@ const Post = styled(Link)`
     &__title {
       grid-area: title;
       margin: 0;
+      font-size: 2.4rem;
     }
     &__sub-heading {
       grid-area: subheading;

@@ -23,7 +23,7 @@ const StyledToggle = styled.button`
   height: 140px;
   background: ${({ theme }) => theme.blue};
   position: relative;
-  z-index: 1;
+  z-index: 2;
   border: 0;
   ${media.break`
     display: none;

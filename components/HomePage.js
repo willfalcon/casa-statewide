@@ -10,7 +10,7 @@ import { media } from './theme';
 
 import Form from './Form';
 
-const Stories = dynamic(() => import('./Stories'), {
+const StoriesSlider = dynamic(() => import('./StoriesSlider'), {
   ssr: false,
 });
 
@@ -21,8 +21,11 @@ const HomePage = props => {
       <Hero {...hero} />
       {bannerText && <h2 className="homepage-banner">{bannerText}</h2>}
       <SubNav subNav={subNav} />
+      <h2 className="stories-heading text-center" style={{ margin: '4rem 0' }}>
+        Stories
+      </h2>
       <Suspense fallback={`...`}>
-        <Stories posts={posts} />
+        <StoriesSlider posts={posts} />
       </Suspense>
       <div className="subscribe-form">
         <div className="subscribe-form__image-wrapper">
@@ -69,6 +72,9 @@ const StyledHome = styled.div`
       &__form {
         order: 1;
         flex: 0 0 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
       }
     `}
   }

@@ -15,7 +15,11 @@ export async function getStaticProps() {
     ${site}
     "page": *[_id == 'homePage'][0] {
       ...,
-      subscribeForm-> { ... }
+      subscribeForm-> { ... },
+      subNav[] {
+        ...,
+        link-> { slug }
+      }
     },
     "posts": *[_type == 'post'][0..2] {
       title, slug, subHeading, mainImage, _id

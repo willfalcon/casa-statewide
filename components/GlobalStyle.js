@@ -84,6 +84,7 @@ const GlobalStyle = createGlobalStyle`
     text-transform: uppercase;
     font-weight: ${({ theme }) => theme.font.bold};
     transition: .15s;
+    cursor: pointer;
     &:hover {
       background: ${({ theme }) => theme.blue};
       color: white;

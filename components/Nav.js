@@ -25,7 +25,7 @@ const StyledNav = styled.nav`
   padding: 5rem 4rem;
   transition: 0.25s;
   transform: ${({ open }) => (open ? 'translateY(0)' : 'translateY(-101%)')};
-  z-index: 0;
+  z-index: 1;
   ${media.break`
     position: static;
     transform: none;

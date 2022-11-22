@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import styled, { ThemeContext } from 'styled-components';
+import dynamic from 'next/dynamic';
+
 import Content from './Content';
 import ImageComp from './ImageComp';
-import StoriesListItem from './StoriesListItem';
 import { media } from './theme';
 
 const SinglePost = ({ mainImage, title, subHeading, body, additionalPosts }) => {
+  const AdditionalStories = dynamic(() => import('./AdditionalStories'), {
+    ssr: false,
+  });
+
   return (
     <StyledPost className="post">
       <div className="post-header">
@@ -20,10 +25,10 @@ const SinglePost = ({ mainImage, title, subHeading, body, additionalPosts }) => 
         <Content className="post-content">{body}</Content>
 
         <div className="additional-posts">
-          <h2 className="additional-posts__heading">Additional Stories</h2>
-          {additionalPosts.map(post => (
-            <StoriesListItem className="additional-posts-item" key={post._id} {...post} />
-          ))}
+          <h2 className="additional-posts__heading text-center">Additional Stories</h2>
+          <Suspense fallback={`...`}>
+            <AdditionalStories additionalPosts={additionalPosts} />
+          </Suspense>
         </div>
       </div>
     </StyledPost>

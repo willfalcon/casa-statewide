@@ -21,6 +21,7 @@ const StyledPageTitle = styled.div`
   padding: 2rem;
   width: 100%;
   margin-bottom: 3rem;
+  z-index: 0;
   ${media.break`
     padding: 3rem 2rem;
 

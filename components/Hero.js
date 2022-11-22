@@ -51,6 +51,7 @@ const StyledHero = styled.div`
         bottom: 0;
         font-weight: ${({ theme }) => theme.font.bold};
         font-size: 2.4rem;
+        padding-bottom: 3rem;
       `}
     }
     &__text {
@@ -69,9 +70,14 @@ const StyledHero = styled.div`
     &__button {
       color: white;
       border-color: white;
+
       ${media.break`
         margin-top: 2rem;
       `}
+      &:hover {
+        background: white;
+        color: ${({ theme }) => theme.blue};
+      }
     }
   }
 `;
