@@ -8,7 +8,7 @@ import { media } from './theme';
 import ImageComp from './ImageComp';
 
 const Hero = ({ button, image, text }) => {
-  // console.log(image);
+  // console.log(button);
   return (
     <StyledHero className="hero">
       <ImageComp className="hero__image" image={image} alt={image.alt} />
