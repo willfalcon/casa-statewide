@@ -10,6 +10,7 @@ import GetInvolved from './GetInvolved';
 import ImageComp from './ImageComp';
 import InfoBlock from './InfoBlock';
 import MediaText from './MediaText';
+import Video from './Video';
 
 const Content = React.forwardRef(({ children, className, references }, ref) => {
   const components = {
@@ -48,8 +49,10 @@ const Content = React.forwardRef(({ children, className, references }, ref) => {
         return <Form {...form} />;
       },
       gallery: ({ value }) => {
-        console.log(value);
         return <Gallery {...value} />;
+      },
+      youtube: ({ value }) => {
+        return <Video {...value} />;
       },
     },
   };
