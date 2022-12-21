@@ -3,7 +3,7 @@ import Link from 'next/link';
 import React from 'react';
 import styled from 'styled-components';
 
-const Button = ({ text, className, label, link }) => {
+const Button = ({ text, className, label, link, externalUrl }) => {
   if (link) {
     const href =
       link._id === 'stories' || link._ref === 'stories'
@@ -17,7 +17,11 @@ const Button = ({ text, className, label, link }) => {
       </LinkButton>
     );
   }
-  return <StyledButton className={classNames(className, 'button')}>{text || label}</StyledButton>;
+  return (
+    <StyledButton href={externalUrl} target="_blank" rel="noreferrer " className={classNames(className, 'button')}>
+      {text || label}
+    </StyledButton>
+  );
 };
 
 const LinkButton = styled(Link)``;

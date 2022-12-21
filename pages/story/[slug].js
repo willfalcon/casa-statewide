@@ -30,12 +30,21 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context) {
-  console.log(context);
   const data = await client.fetch(
     `
     {
       ${site}
-      "post": *[_type == "post" && slug.current == $slug][0],
+      "post": *[_type == "post" && slug.current == $slug][0] {
+        ...,
+        content[] {
+          ...,
+          markDefs[] {
+            ...,
+            link-> { slug, _id }
+          },
+          link-> { slug, _id }
+        }
+      },
       "additional": *[_type == "post" && slug.current != $slug][0..3] {
         mainImage, title, subHeading, slug, _id
       }

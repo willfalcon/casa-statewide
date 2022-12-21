@@ -2,6 +2,8 @@ import { PortableText } from '@portabletext/react';
 import classNames from 'classnames';
 import React from 'react';
 import styled from 'styled-components';
+import Link from 'next/link';
+
 import Accordions from './Accordions';
 import Button from './Button';
 import Form from './Form';
@@ -16,6 +18,19 @@ const Content = React.forwardRef(({ children, className, references }, ref) => {
   const components = {
     marks: {
       centered: props => <span className="text-center">{props.children}</span>,
+      internalLink: props => {
+        const { value, children } = props;
+
+        const link = value.link;
+        const href =
+          link._id === 'stories' || link._ref === 'stories'
+            ? '/stories'
+            : link._id === 'homePage' || link._ref === 'homePage'
+            ? '/'
+            : `/${link.slug?.current}`;
+
+        return <Link href={href}>{children}</Link>;
+      },
     },
     types: {
       image: ({ value }) => {
@@ -25,13 +40,14 @@ const Content = React.forwardRef(({ children, className, references }, ref) => {
       mediaText: ({ value }) => {
         return <MediaText {...value} />;
       },
-      button: ({ value }) => {
+      button: props => {
+        const { value } = props;
+
         const { alignment: justifyContent } = value;
-        const button = value.link?._type === 'reference' ? { ...value, link: references.find(ref => ref._id === value.link._ref) } : value;
 
         return (
           <div className="content-button-wrapper" style={{ justifyContent }}>
-            <Button className="content-button" {...button} />
+            <Button className="content-button" {...value} />
           </div>
         );
       },

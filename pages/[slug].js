@@ -6,6 +6,7 @@ import Wrapper, { site } from '../components/Wrapper';
 import client from '../lib/client';
 
 const post = props => {
+  console.log(props);
   return (
     <Wrapper site={props.site}>
       <Page {...props.page} references={props.references} />
@@ -36,13 +37,25 @@ export async function getStaticProps(context) {
     `
     {
       ${site}
-      "page": *[_type == "page" && slug.current == $slug][0]
+      "page": *[_type == "page" && slug.current == $slug][0] {
+        ...,
+        content[] {
+          ...,
+          markDefs[] {
+            ...,
+            link-> { slug, _id }
+          },
+          link-> {
+            slug, _id
+          }
+        }
+      }
     }
   `,
     { slug: context.params.slug }
   );
 
-  const referenceFields = data.page.content?.filter(block => block.link?._type === 'reference' || block._type === 'form');
+  const referenceFields = data.page.content?.filter(block => block._type === 'form');
   const references = referenceFields
     ? await Promise.all(
         referenceFields?.map(async item => {
@@ -51,6 +64,7 @@ export async function getStaticProps(context) {
               const form = await client.fetch(`*[_id == $ref][0]`, { ref: item._ref });
               return form;
             } else if (item.link?._type === 'reference') {
+              console.log(item);
               const button = await client.fetch(`*[_id == $ref][0]`, { ref: item.link._ref });
               return button;
             }
