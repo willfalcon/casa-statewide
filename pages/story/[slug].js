@@ -6,7 +6,7 @@ import client from '../../lib/client';
 const post = props => {
   return (
     <Wrapper site={props.site}>
-      <SinglePost {...props.post} additionalPosts={props.additional} />
+      <SinglePost {...props.post} additionalPosts={props.post.additional} />
     </Wrapper>
   );
 };
@@ -43,11 +43,11 @@ export async function getStaticProps(context) {
             link-> { slug, _id }
           },
           link-> { slug, _id }
+        },
+        "additional": *[_type == "post" && slug.current != $slug] | order(publishedAt desc) [0..3] {
+          mainImage, title, subHeading, slug, _id
         }
       },
-      "additional": *[_type == "post" && slug.current != $slug][0..3] {
-        mainImage, title, subHeading, slug, _id
-      }
     }
   `,
     { slug: context.params.slug }

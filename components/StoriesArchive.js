@@ -1,18 +1,28 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import styled from 'styled-components';
+import dynamic from 'next/dynamic';
+
 import PageTitle from './PageTitle';
 import Pagination from './Pagination';
 import StoriesListItem from './StoriesListItem';
+import { useSiteContext } from './Wrapper';
+const StoriesSlider = dynamic(() => import('./StoriesSlider'), {
+  ssr: false,
+});
+const StoriesArchive = ({ posts, page, numPages, title, category }) => {
+  const path = category ? `category/${category.slug.current}` : 'stories';
 
-const StoriesArchive = ({ posts, page, numPages }) => {
   return (
     <Archive className="archive">
-      <PageTitle>Stories</PageTitle>
+      <PageTitle>{title || 'Stories'}</PageTitle>
+      <Suspense fallback={`...`}>
+        <StoriesSlider />
+      </Suspense>
       <div className="archive-posts">
         {posts.map(post => (
           <StoriesListItem className="archive-post" key={post._id} {...post} />
         ))}
-        <Pagination page={page} numPages={numPages} />
+        <Pagination page={page} numPages={numPages} path={path} />
       </div>
     </Archive>
   );

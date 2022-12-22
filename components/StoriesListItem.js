@@ -5,11 +5,12 @@ import { MdOutlineArrowRightAlt } from 'react-icons/md';
 import ImageComp from './ImageComp';
 import classNames from 'classnames';
 
-const StoriesListItem = ({ slug, title, mainImage, subHeading, className }) => {
+const StoriesListItem = ({ slug, title, mainImage, subHeading, className, excerpt }) => {
   return (
     <Post className={classNames(className, 'post')} href={`/story/${slug.current}`}>
       <h3 className="post__title">{title}</h3>
       <span className="post__sub-heading">{subHeading}</span>
+      <p className="post__excerpt">{excerpt}</p>
       <span className="post__read-more read-more">
         Read Story <MdOutlineArrowRightAlt className="read-more-icon" />
       </span>
@@ -21,10 +22,11 @@ const StoriesListItem = ({ slug, title, mainImage, subHeading, className }) => {
 const Post = styled(Link)`
   display: grid;
   grid-template-columns: 1fr 40%;
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: auto auto 1fr auto;
   grid-template-areas:
     'title image'
     'subheading image'
+    'excerpt image'
     'more image';
   padding: 1rem;
   padding-bottom: 2rem;
@@ -55,6 +57,9 @@ const Post = styled(Link)`
     }
     &__image {
       grid-area: image;
+    }
+    &__excerpt {
+      grid-area: excerpt;
     }
   }
 `;

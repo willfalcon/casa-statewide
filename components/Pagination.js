@@ -5,9 +5,7 @@ import { media } from './theme';
 import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
 import { rgba } from 'polished';
 
-const Pagination = ({ page, numPages }) => {
-  const slug = 'stories';
-
+const Pagination = ({ page, numPages, path = 'stories' }) => {
   const prev = page > 1 ? page - 1 : false;
   const next = page === numPages ? false : page + 1;
 
@@ -20,43 +18,43 @@ const Pagination = ({ page, numPages }) => {
     numPages > 1 && (
       <StyledPagination role="navigation" aria-label="Pagination Navigation">
         {prev && (
-          <Link className="page-number prev" href={`/${slug}/${prev === 1 ? '' : prev}`} aria-label="Go to previous page">
+          <Link className="page-number prev" href={`/${path}/${prev === 1 ? '' : prev}`} aria-label="Go to previous page">
             <AiOutlineLeft className="pagination-caret" />
           </Link>
         )}
         {threeBack && (
-          <Link className="page-number" href={`/${slug}/${threeBack === 1 ? '' : threeBack}`} aria-label={`Go to page ${threeBack}`}>
+          <Link className="page-number" href={`/${path}/${threeBack === 1 ? '' : threeBack}`} aria-label={`Go to page ${threeBack}`}>
             {threeBack}
           </Link>
         )}
         {twoBack && (
-          <Link className="page-number" href={`/${slug}/${twoBack === 1 ? '' : twoBack}`} aria-label={`Go to page ${twoBack}`}>
+          <Link className="page-number" href={`/${path}/${twoBack === 1 ? '' : twoBack}`} aria-label={`Go to page ${twoBack}`}>
             {twoBack}
           </Link>
         )}
         {prev && (
-          <Link className="page-number" href={`/${slug}/${prev === 1 ? '' : prev}`} aria-label={`Go to page ${prev}`}>
+          <Link className="page-number" href={`/${path}/${prev === 1 ? '' : prev}`} aria-label={`Go to page ${prev}`}>
             {prev}
           </Link>
         )}
         {numPages && <span className="page-number current">{page}</span>}
         {next && (
-          <Link className="page-number" href={`/${slug}/${next === 1 ? '' : next}`} aria-label={`Go to page ${next}`}>
+          <Link className="page-number" href={`/${path}/${next === 1 ? '' : next}`} aria-label={`Go to page ${next}`}>
             {next}
           </Link>
         )}
         {twoAhead && (
-          <Link className="page-number" href={`/${slug}/${twoAhead === 1 ? '' : twoAhead}`} aria-label={`Go to page ${twoAhead}`}>
+          <Link className="page-number" href={`/${path}/${twoAhead === 1 ? '' : twoAhead}`} aria-label={`Go to page ${twoAhead}`}>
             {twoAhead}
           </Link>
         )}
         {threeAhead && (
-          <Link className="page-number" href={`/${slug}/${threeAhead === 1 ? '' : threeAhead}`} aria-label={`Go to page ${threeAhead}`}>
+          <Link className="page-number" href={`/${path}/${threeAhead === 1 ? '' : threeAhead}`} aria-label={`Go to page ${threeAhead}`}>
             {threeAhead}
           </Link>
         )}
         {next && (
-          <Link className="page-number next" href={`/${slug}/${next === 1 ? '' : next}`} aria-label="Go to next page">
+          <Link className="page-number next" href={`/${path}/${next === 1 ? '' : next}`} aria-label="Go to next page">
             <AiOutlineRight className="pagination-caret" />
           </Link>
         )}

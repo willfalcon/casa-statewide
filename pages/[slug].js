@@ -6,7 +6,6 @@ import Wrapper, { site } from '../components/Wrapper';
 import client from '../lib/client';
 
 const post = props => {
-  console.log(props);
   return (
     <Wrapper site={props.site}>
       <Page {...props.page} references={props.references} />
@@ -64,7 +63,6 @@ export async function getStaticProps(context) {
               const form = await client.fetch(`*[_id == $ref][0]`, { ref: item._ref });
               return form;
             } else if (item.link?._type === 'reference') {
-              console.log(item);
               const button = await client.fetch(`*[_id == $ref][0]`, { ref: item.link._ref });
               return button;
             }

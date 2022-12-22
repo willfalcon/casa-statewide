@@ -15,7 +15,8 @@ const StoriesSlider = dynamic(() => import('./StoriesSlider'), {
 });
 
 const HomePage = props => {
-  const { title, hero, bannerText, subNav, posts, subscribeImage, subscribeForm } = props;
+  const { title, hero, bannerText, subNav, subscribeImage, subscribeForm } = props;
+
   return (
     <StyledHome className="home-page">
       <Hero {...hero} />
@@ -25,7 +26,7 @@ const HomePage = props => {
         Stories
       </h2>
       <Suspense fallback={`...`}>
-        <StoriesSlider posts={posts} />
+        <StoriesSlider />
       </Suspense>
       <div className="subscribe-form">
         <div className="subscribe-form__image-wrapper">

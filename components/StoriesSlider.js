@@ -11,10 +11,11 @@ import 'swiper/css/navigation';
 import ImageComp from './ImageComp';
 import { media } from './theme';
 import Link from 'next/link';
+import { useSiteContext } from './Wrapper';
 
-const StoriesSlider = ({ posts }) => {
+const StoriesSlider = () => {
   const [tallest, setHeight] = useState(null);
-
+  const { slider } = useSiteContext();
   return (
     <StyledStories className="stories" height={tallest}>
       <Swiper
@@ -34,7 +35,7 @@ const StoriesSlider = ({ posts }) => {
           });
         }}
       >
-        {posts.map(post => {
+        {slider.map(post => {
           return (
             <SwiperSlide key={post._id}>
               <Post className="stories-post" href={`/story/${post.slug.current}`} height={tallest}>

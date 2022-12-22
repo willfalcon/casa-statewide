@@ -5,7 +5,7 @@ import HomePage from '../components/HomePage';
 export default function Home(props) {
   return (
     <Wrapper site={props.site}>
-      <HomePage {...props.page} posts={props.posts} />
+      <HomePage {...props.page} subNav={props.site.subNav} />
     </Wrapper>
   );
 }
@@ -27,9 +27,6 @@ export async function getStaticProps() {
         ...,
         link-> { slug }
       }
-    },
-    "posts": *[_type == 'post'][0..2] {
-      title, slug, subHeading, mainImage, _id
     }
   }`);
 

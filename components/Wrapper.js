@@ -7,7 +7,7 @@ import Meta from './Meta';
 import theme, { media } from './theme';
 
 export const site = `"site": {
-"header": *[_id == 'generalSettings'][0] { 
+  "header": *[_id == 'generalSettings'][0] { 
     ..., 
     logo {
       ...,
@@ -16,12 +16,12 @@ export const site = `"site": {
     mainMenu[] {
       ...,
       link->{ ... }
-    },
+    }
   },
   "footer": *[_id == 'footerSettings'][0] {
     ...
   },
-  "subNav": *[_id == 'homePage'][0].subNav[] {
+  "subNav": *[_id == 'generalSettings'][0].subNav[] {
     ...,
     link->{
       slug {
@@ -29,17 +29,20 @@ export const site = `"site": {
       }
     }
   },
-  "webFormAccessKey": *[_id == 'generalSettings'][0].webFormAccessKey
+  "slider": *[_type == 'post' && count((categories[]->slug.current)[@ in *[_id == 'generalSettings'][0].specialCategories[]->slug.current]) > 0] | order(publishedAt desc) {
+      title, slug, subHeading, mainImage, _id
+    }
 },`;
 
 const SiteContext = createContext();
 export const useSiteContext = () => useContext(SiteContext);
 
 const Wrapper = ({ children, site }) => {
-  const { subNav, webFormAccessKey, header, footer } = site;
+  const { subNav, webFormAccessKey, header, footer, slider } = site;
+
   return (
     <ThemeProvider theme={theme}>
-      <SiteContext.Provider value={{ ...header, subNav, webFormAccessKey }}>
+      <SiteContext.Provider value={{ ...header, subNav, webFormAccessKey, slider }}>
         <SiteWrapper className="site-wrapper">
           <Meta />
           <Header {...header} />
