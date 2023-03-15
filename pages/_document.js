@@ -32,6 +32,7 @@ export default class MyDocument extends Document {
           <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#003362" />
           <meta name="msapplication-TileColor" content="#00aba9" />
           <meta name="theme-color" content="#ffffff" />
+          <link rel="stylesheet" href="https://use.typekit.net/hef2urc.css"></link>
         </Head>
         <body>
           <Main />
