@@ -4,6 +4,9 @@ import { urlFor } from '../lib/client';
 import { media } from './theme';
 
 const ImageComp = ({ className, image, alt, mobile, desktop, useMobileCrop = false }) => {
+  if (!image) {
+    return null;
+  }
   const mobileSrc = mobile
     ? urlFor(useMobileCrop ? image : { ...image.asset })
         .width(mobile)
