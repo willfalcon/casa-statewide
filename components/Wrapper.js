@@ -19,7 +19,13 @@ export const site = `"site": {
     }
   },
   "footer": *[_id == 'footerSettings'][0] {
-    ...
+    ...,
+    cornerLogo {
+      ...,
+      logo {
+        asset->{ ... }
+      }
+    }
   },
   "subNav": *[_id == 'generalSettings'][0].subNav[] {
     ...,

@@ -4,8 +4,10 @@ import styled from 'styled-components';
 
 import Content from './Content';
 import { media } from './theme';
+import Image from 'next/image';
 
-const Footer = ({ address, email, links, message, phoneHeading, numbers }) => {
+const Footer = ({ address, email, links, message, phoneHeading, numbers, cornerLogo }) => {
+  console.log(cornerLogo);
   return (
     <StyledFooter>
       {address && <Content className="footer-address">{address}</Content>}
@@ -17,9 +19,9 @@ const Footer = ({ address, email, links, message, phoneHeading, numbers }) => {
       )}
 
       <div className="footer-phone-numbers">
-        <p>
+        <h3>
           <strong>{phoneHeading}</strong>
-        </p>
+        </h3>
         {numbers.map(number => {
           const parsedNumber = parsePhoneNumber(number, 'US');
           return (
@@ -41,6 +43,12 @@ const Footer = ({ address, email, links, message, phoneHeading, numbers }) => {
             </a>
           );
         })}
+      </div>
+
+      <div className="corner-logo">
+        <a href={cornerLogo.link} target="_blank">
+          <Image src={cornerLogo.logo.asset.url} alt={cornerLogo.alt} width={100} height={100} />
+        </a>
       </div>
     </StyledFooter>
   );
@@ -65,14 +73,19 @@ const StyledFooter = styled.footer`
   ${media.break`
     padding: 7rem 10rem;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(2, auto);
+    grid-template-rows: repeat(3, auto);
     gap: 3rem 5rem;
     grid-template-areas:
       "address message numbers"
-      "email links .";
+      "address message logo"
+      "email links logo";
   `}
+  h1, h2, h3, h4, h5, h6 {
+    color: white;
+    margin-top: 0;
+  }
   p {
-    margin: 0;
+    margin: 1rem 0;
   }
   a {
     color: ${({ theme }) => theme.light};
@@ -98,6 +111,13 @@ const StyledFooter = styled.footer`
   .footer-links {
     grid-area: links;
     word-break: break-all;
+    a {
+      display: block;
+    }
+  }
+  .corner-logo {
+    grid-area: logo;
+    align-self: end;
   }
 `;
 
