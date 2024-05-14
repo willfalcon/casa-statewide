@@ -73,12 +73,12 @@ const StyledFooter = styled.footer`
   ${media.break`
     padding: 7rem 10rem;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, auto);
+    grid-template-rows: auto 1fr auto;
     gap: 3rem 5rem;
     grid-template-areas:
       "address message numbers"
-      "address message logo"
-      "email links logo";
+      "address links logo"
+      "email . logo";
   `}
   h1, h2, h3, h4, h5, h6 {
     color: white;
@@ -118,6 +118,7 @@ const StyledFooter = styled.footer`
   .corner-logo {
     grid-area: logo;
     align-self: end;
+    justify-self: end;
   }
 `;
 
